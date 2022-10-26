@@ -1,10 +1,5 @@
 ## Todo
 
-Create script to create Db:
-  - Set index on visitorId
-  - Set index on coordiates
-  - Set TTL for every document
-
 Add `readCount` prop to `MessagePacket`:
   - Delete document after 5 reads
 

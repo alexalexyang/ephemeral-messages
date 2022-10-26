@@ -54,6 +54,7 @@ export const insertMessage = async (
                         type: "Point",
                         coordinates: visitorCoords,
                     },
+                    createdAt: new Date(),
                 },
             );
 
