@@ -11,6 +11,10 @@ const NavItems = () => {
             <Link href="/post-message">
                 Post message
             </Link>
+
+            <Link href="/how-to-use">
+                How to use
+            </Link>
         </>
     )
 }
