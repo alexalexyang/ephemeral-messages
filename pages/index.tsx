@@ -18,8 +18,8 @@ type NearbyMsgProps = {
   setMsgLocs: Dispatch<SetStateAction<[number, number][]>>;
 }
 
-export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMsgLocs }: NearbyMsgProps) => {
-  const res = await fetch('/api/get-messages-within-range', {
+export const getNearbyMsgLocs = async ({ visitorId, lon, lat, min, max, setMsgLocs }: NearbyMsgProps) => {
+  const res = await fetch('/api/get-msg-locs-within-range', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -41,6 +41,8 @@ export default function Home() {
   const [visitorId, setVisitorId] = useState<string>('')
   const [msgLocs, setMsgLocs] = useState<[number, number][]>([])
 
+  console.log(msgLocs)
+
   useEffect(() => {
     getvisitorCoords(setvisitorCoords);
     createVisitorId(setVisitorId)
@@ -51,7 +53,7 @@ export default function Home() {
 
     const { lon, lat } = visitorCoords
 
-    getNearbyMessages({
+    getNearbyMsgLocs({
       visitorId,
       lon,
       lat,

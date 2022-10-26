@@ -1,6 +1,5 @@
 import { MongoClient, WithId } from "mongodb";
 import { MessagePacket, ReqStatus } from "types";
-import type { VisitorCoordsProps } from "util/index";
 
 const ephemeralDb = "ephemeral"
 const messagesColl = "messages"
@@ -54,6 +53,7 @@ export const insertMessage = async (
                         type: "Point",
                         coordinates: visitorCoords,
                     },
+                    count: 0,
                     createdAt: new Date(),
                 },
             );
@@ -75,10 +75,12 @@ type GetVisitorsWithinRangeProps = {
     visitorId: string;
     coordinates: [number, number];
     distance: { min: number; max: number };
+    projection: Record<string, any>,
+    sampleSize: number;
 }
 
 
-export const getMessagesWithinRange = async ({ visitorId, coordinates, distance }: GetVisitorsWithinRangeProps): Promise<number[][]> => {
+export const getMessagesWithinRange = async <T>({ visitorId, coordinates, distance, projection, sampleSize }: GetVisitorsWithinRangeProps): Promise<WithId<Document & T>[]> => {
 
     const { min, max } = distance
 
@@ -86,29 +88,27 @@ export const getMessagesWithinRange = async ({ visitorId, coordinates, distance 
 
     const client = await connectDb();
 
-    const res = client.db(ephemeralDb).collection(messagesColl).find(
+    const res = client.db(ephemeralDb).collection(messagesColl).aggregate([
         {
-            coords: {
-                $nearSphere: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates
-                    },
-                    $minDistance: min,
-                    $maxDistance: max
+            $geoNear: {
+                near: { type: "Point", coordinates },
+                distanceField: "dist.calculated",
+                minDistance: min,
+                maxDistance: max,
+                includeLocs: "dist.location",
+                spherical: true,
+                query: {
+                    visitorId: {
+                        $ne: visitorId
+                    }
                 }
-            },
-            visitorId: {
-                $ne: visitorId
             }
-        }
-    ).project({
-        coords: 1
-    })
+        },
+        { $sample: { size: sampleSize } }
+    ])
+        .project(projection)
 
-    const data = await Promise.resolve(res.toArray()) as (WithId<Document & { coords: { coordinates: number[] } }>)[]
+    const data = await Promise.resolve(res.toArray()) as (WithId<Document & T>)[]
 
-    const result = data.map(item => item.coords.coordinates)
-
-    return result
+    return data
 }

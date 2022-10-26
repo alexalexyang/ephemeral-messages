@@ -3,6 +3,13 @@
 Add `readCount` prop to `MessagePacket`:
   - Delete document after 5 reads
 
+If count === 4, delete message (current user is 5th reader)
+
+If count < 4, update count
+
+Style messages
+
+
 ## Summary
 
 Save text messages along with GPS coords.

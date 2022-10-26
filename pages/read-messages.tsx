@@ -1,16 +1,42 @@
 
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { createVisitorId, getvisitorCoords, VisitorCoordsProps } from 'util/index'
 import { NextPage } from 'next'
-import { getNearbyMessages } from 'pages'
 import DefaultLayout from 'components/layouts/default-layout'
+import { ReqStatus } from 'types'
+
+type NearbyMsgProps = {
+    visitorId: string;
+    lon: number;
+    lat: number;
+    min: number;
+    max: number;
+    setMessages: Dispatch<SetStateAction<string[]>>;
+}
+
+export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMessages }: NearbyMsgProps) => {
+    const res = await fetch('/api/get-messages-within-range', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ visitorId, lon, lat, min, max })
+    });
+
+    const { status, results } = await res.json()
+
+    if (status === ReqStatus.SUCCESS) {
+        setMessages(results)
+    }
+
+}
 
 const ReadMessagesPage: NextPage = () => {
     const [visitorCoords, setvisitorCoords] = useState<VisitorCoordsProps | undefined>();
     const [visitorId, setVisitorId] = useState<string>('')
-    const [msgLocs, setMsgLocs] = useState<[number, number][]>([])
+    const [messages, setMessages] = useState<string[]>([])
 
     useEffect(() => {
         getvisitorCoords(setvisitorCoords);
@@ -27,8 +53,8 @@ const ReadMessagesPage: NextPage = () => {
             lon,
             lat,
             min: 0,
-            max: 10,
-            setMsgLocs
+            max: 100000,
+            setMessages
         })
 
     }, [visitorId, visitorCoords])
@@ -41,6 +67,10 @@ const ReadMessagesPage: NextPage = () => {
 
             <DefaultLayout>
                 <h1>Read some messages around you</h1>
+
+                {!!messages.length && messages.map((msg, idx) => (
+                    <div key={idx}>{msg}</div>
+                ))}
             </DefaultLayout>
         </>
     )

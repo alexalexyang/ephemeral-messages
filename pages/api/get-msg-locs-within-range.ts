@@ -4,7 +4,7 @@ import { ReqStatus } from 'types';
 import { getMessagesWithinRange } from 'util/db';
 
 type Data = {
-    results?: string[];
+    results?: number[][];
     status: ReqStatus;
     message?: string;
 }
@@ -16,7 +16,7 @@ export default async function handler(
     try {
         const { visitorId, lon, lat, min, max } = req.body
 
-        const data = await getMessagesWithinRange<{ message: string; count: number; }>({
+        const data = await getMessagesWithinRange<{ coords: { coordinates: number[] } }>({
             visitorId: visitorId as string,
             coordinates: [
                 lon,
@@ -27,26 +27,12 @@ export default async function handler(
                 max: max,
             },
             projection: {
-                message: 1,
-                count: 1
+                coords: 1
             },
             sampleSize: 5,
         })
 
-        // Todo: batch delete and batch upsert
-
-        const results = data.map(item => {
-
-            if (item.count === 4) {
-                // Delete message (current user is 5th reader)
-            }
-
-            if (item.count < 4) {
-                // Upsert count +1
-            }
-
-            return item.message
-        })
+        const results = data.map(item => item.coords.coordinates)
 
         res.status(200).json({ status: ReqStatus.SUCCESS, results })
     } catch (Error) {
