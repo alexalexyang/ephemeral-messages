@@ -15,7 +15,9 @@ export default async function handler(
   try {
     const { visitorId, message, visitorCoords } = req.body
 
-    const { status } = await insertMessage(visitorId, message, visitorCoords);
+    const { lon, lat } = visitorCoords
+
+    const { status } = await insertMessage(visitorId, message, [lon, lat]);
 
     res.status(200).json({ status })
   } catch (Error) {

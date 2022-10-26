@@ -1,5 +1,5 @@
 import { LatLngExpression } from 'leaflet'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import styled from 'styled-components'
 
 const MapWrapper = styled.div`
@@ -12,21 +12,25 @@ const MapWrapper = styled.div`
     }
 `
 
-const Map = () => {
-    const position = [51.505, -0.09] as LatLngExpression
+type Props = {
+    visitorCoords: [number, number];
+    msgLocs: [number, number][]
+}
+
+const Map = ({ visitorCoords, msgLocs }: Props) => {
 
     return (
         <MapWrapper>
-            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+            <MapContainer center={visitorCoords} zoom={15} scrollWheelZoom={true} zoomControl={false}>
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                    url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
                 />
-                <Marker position={position}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                <ZoomControl position="bottomright" />
+
+                {!!msgLocs.length && msgLocs.map((loc, idx) => (
+                    <Marker position={loc} key={idx} />
+                ))}
             </MapContainer>
         </MapWrapper>
     )

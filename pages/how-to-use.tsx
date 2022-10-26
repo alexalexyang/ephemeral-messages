@@ -29,11 +29,15 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        Use the map to find posts within a radius of you.
+                        The map shows the locations of messages within a radius of you.
                     </li>
 
                     <li>
-                        You may post only up to 5 posts a week.
+                        You have to be physically within 10 metres of the message to read it.
+                    </li>
+
+                    <li>
+                        You may post only up to 5 messages a week.
                     </li>
 
                     <li>

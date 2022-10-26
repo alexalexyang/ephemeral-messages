@@ -38,7 +38,7 @@ export const getVisitorMessages = async (visitorId: string): Promise<MessagePack
 export const insertMessage = async (
     visitorId: string,
     message: string,
-    visitorCoords: VisitorCoordsProps
+    visitorCoords: [number, number]
 ): Promise<{ status: ReqStatus; }> => {
     try {
         const client = await connectDb();
@@ -67,3 +67,48 @@ export const insertMessage = async (
         throw error
     }
 };
+
+/**
+ * `distance` in metres.
+ */
+type GetVisitorsWithinRangeProps = {
+    visitorId: string;
+    coordinates: [number, number];
+    distance: { min: number; max: number };
+}
+
+
+export const getMessagesWithinRange = async ({ visitorId, coordinates, distance }: GetVisitorsWithinRangeProps): Promise<number[][]> => {
+
+    const { min, max } = distance
+
+    console.log(`Looking for messages near ${coordinates[0]}, ${coordinates[1]}, between ${min} and ${max}m.`)
+
+    const client = await connectDb();
+
+    const res = client.db(ephemeralDb).collection(messagesColl).find(
+        {
+            coords: {
+                $nearSphere: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates
+                    },
+                    $minDistance: min,
+                    $maxDistance: max
+                }
+            },
+            visitorId: {
+                $ne: visitorId
+            }
+        }
+    ).project({
+        coords: 1
+    })
+
+    const data = await Promise.resolve(res.toArray()) as (WithId<Document & { coords: { coordinates: number[] } }>)[]
+
+    const result = data.map(item => item.coords.coordinates)
+
+    return result
+}
