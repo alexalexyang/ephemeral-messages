@@ -77,35 +77,37 @@ type GetVisitorsWithinRangeProps = {
 
 
 export const getMessagesWithinRange = async <T>({ visitorId, coordinates, distance, projection, sampleSize }: GetVisitorsWithinRangeProps): Promise<WithId<Document & T>[]> => {
+    try {
+        const { min, max } = distance
 
-    const { min, max } = distance
+        const client = await connectDb();
 
-
-    const client = await connectDb();
-
-    const res = client.db(ephemeralDb).collection(messagesColl).aggregate([
-        {
-            $geoNear: {
-                near: { type: "Point", coordinates },
-                distanceField: "dist.calculated",
-                minDistance: min,
-                maxDistance: max,
-                includeLocs: "dist.location",
-                spherical: true,
-                query: {
-                    visitorId: {
-                        $ne: visitorId
+        const res = client.db(ephemeralDb).collection(messagesColl).aggregate([
+            {
+                $geoNear: {
+                    near: { type: "Point", coordinates },
+                    distanceField: "dist.calculated",
+                    minDistance: min,
+                    maxDistance: max,
+                    includeLocs: "dist.location",
+                    spherical: true,
+                    query: {
+                        visitorId: {
+                            $ne: visitorId
+                        }
                     }
                 }
-            }
-        },
-        { $sample: { size: sampleSize } }
-    ])
-        .project(projection)
+            },
+            { $sample: { size: sampleSize } }
+        ])
+            .project(projection)
 
-    const data = await Promise.resolve(res.toArray()) as (WithId<Document & T>)[]
+        const data = await Promise.resolve(res.toArray()) as (WithId<Document & T>)[]
 
-    return data
+        return data
+    } catch (err) {
+        throw err
+    }
 }
 
 export const bulkWrite = async (commands: AnyBulkWriteOperation<object>[]): Promise<BulkWriteResult> => {

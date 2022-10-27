@@ -6,6 +6,36 @@ import { NextPage } from 'next'
 import DefaultLayout from 'components/layouts/default-layout'
 import { ReqStatus } from 'types'
 import { radiusFromVisitor1 } from 'util/constants'
+import styled from 'styled-components'
+
+const MsgsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+
+    color: #444444;
+    font-size: 1.2rem;
+    font-weight: 200;
+    letter-spacing: 0.09px;
+    line-height: 1.9rem;
+`
+
+const MsgBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`
+
+const Msg = styled.div`
+    width: 100%;
+`
+
+const Hr = styled.hr`
+    border-top: none;
+    border-bottom: 1px solid red;
+    margin: 2rem 0;
+`
 
 type NearbyMsgProps = {
     visitorId: string;
@@ -14,9 +44,10 @@ type NearbyMsgProps = {
     min: number;
     max: number;
     setMessages: Dispatch<SetStateAction<string[]>>;
+    setGetReqStatus: Dispatch<SetStateAction<ReqStatus>>
 }
 
-export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMessages }: NearbyMsgProps) => {
+export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMessages, setGetReqStatus }: NearbyMsgProps) => {
     const res = await fetch('/api/get-messages-within-range', {
         method: 'POST',
         headers: {
@@ -30,14 +61,19 @@ export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMess
 
     if (status === ReqStatus.SUCCESS) {
         setMessages(messages)
+        setGetReqStatus(ReqStatus.SUCCESS)
+        return
     }
-
+    setGetReqStatus(ReqStatus.FAIL)
 }
 
 const ReadMessagesPage: NextPage = () => {
     const [visitorCoords, setvisitorCoords] = useState<VisitorCoordsProps | undefined>();
     const [visitorId, setVisitorId] = useState<string>('')
     const [messages, setMessages] = useState<string[]>([])
+
+    const [getReqStatus, setGetReqStatus] = useState<ReqStatus>(ReqStatus.IDLE)
+
 
     useEffect(() => {
         getvisitorCoords(setvisitorCoords);
@@ -49,13 +85,16 @@ const ReadMessagesPage: NextPage = () => {
 
         const { lon, lat } = visitorCoords
 
+        setGetReqStatus(ReqStatus.PENDING)
+
         getNearbyMessages({
             visitorId,
             lon,
             lat,
             min: 0,
             max: radiusFromVisitor1,
-            setMessages
+            setMessages,
+            setGetReqStatus
         })
 
     }, [visitorId, visitorCoords])
@@ -67,11 +106,22 @@ const ReadMessagesPage: NextPage = () => {
             </Head>
 
             <DefaultLayout>
-                <h1>Read some messages around you</h1>
+                <h1>Messages within {radiusFromVisitor1}m of you</h1>
 
-                {!!messages.length && messages.map((msg, idx) => (
-                    <div key={idx}>{msg}</div>
-                ))}
+                <MsgsWrapper>
+                    {
+                        (getReqStatus === ReqStatus.IDLE ||
+                            getReqStatus === ReqStatus.PENDING) &&
+                        <span>Please wait...</span>
+                    }
+
+                    {!!messages.length && messages.map((msg, idx) => (
+                        <MsgBox key={idx}>
+                            <Msg>{msg}</Msg>
+                            {idx + 1 !== messages.length && <Hr />}
+                        </MsgBox>
+                    ))}
+                </MsgsWrapper>
             </DefaultLayout>
         </>
     )

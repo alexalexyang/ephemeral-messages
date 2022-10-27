@@ -16,11 +16,12 @@ const Main = styled.main`
 
 const Content = styled.div`
     width: 100%;
-    padding: 0.5rem;
+    padding: 1rem;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    color: #444;
 
     h1 {
         font-size: 1.5rem;
@@ -32,6 +33,14 @@ const Content = styled.div`
         font-size: 1.3rem;
         font-weight: 200;
         letter-spacing: 0.4px;
+    }
+
+    ul {
+        font-size: 1.3rem;
+    }
+
+    li {
+        letter-spacing: 0.5px;
     }
 
     @media only screen and (min-width: ${breakpoints.sm}px) {
