@@ -74,7 +74,6 @@ const ReadMessagesPage: NextPage = () => {
 
     const [getReqStatus, setGetReqStatus] = useState<ReqStatus>(ReqStatus.IDLE)
 
-
     useEffect(() => {
         getvisitorCoords(setvisitorCoords);
         createVisitorId(setVisitorId)
@@ -114,6 +113,10 @@ const ReadMessagesPage: NextPage = () => {
                             getReqStatus === ReqStatus.PENDING) &&
                         <span>Please wait...</span>
                     }
+
+                    {getReqStatus === ReqStatus.SUCCESS &&
+                        messages.length === 0 &&
+                        <span>No message here yet.</span>}
 
                     {!!messages.length && messages.map((msg, idx) => (
                         <MsgBox key={idx}>

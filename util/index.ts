@@ -35,6 +35,6 @@ export const createVisitorId = async (setVisitorId: Dispatch<SetStateAction<stri
 
     const fp = await fpPromise
     const { visitorId } = await fp.get()
-    console.log(`Visitor ID: ${visitorId}`)
+
     setVisitorId(visitorId)
 }
