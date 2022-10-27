@@ -1,5 +1,4 @@
-import MapNav from 'components/layouts/map-nav'
-import Link from 'next/link'
+import MapNav from './nav/map-nav'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 

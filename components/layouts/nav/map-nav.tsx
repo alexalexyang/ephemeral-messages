@@ -1,13 +1,14 @@
-
 import styled from 'styled-components'
 import NavItems from './nav-items'
 
-const DefaultNavBar = styled.nav`
+const MapNavBar = styled.nav`
     width: 100%;
+    position: absolute;
+    z-index: 1;
     display: flex;
     justify-content: space-evenly;
-    background: rgba(94, 0, 61, 1);
-    box-shadow: 2px 2px 2px purple;
+    background-color: rgba(201, 201, 201, 0.6);
+    box-shadow: 2px 2px 2px gray;
     padding: 0.5rem;
 
     font-size: 1.5rem;
@@ -20,13 +21,13 @@ const DefaultNavBar = styled.nav`
     }
 `
 
-const DefaultNav = () => {
+const MapNav = () => {
 
     return (
-        <DefaultNavBar>
+        <MapNavBar>
             <NavItems />
-        </DefaultNavBar>
+        </MapNavBar>
     )
 }
 
-export default DefaultNav
+export default MapNav

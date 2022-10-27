@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 import { breakpoints } from 'styles/constants'
-import DefaultNav from './default-nav'
+import DefaultNav from './nav/default-nav'
 
 const Wrapper = styled.div`
   display: flex;
