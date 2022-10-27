@@ -1,0 +1,17 @@
+{
+    "name": "Vapour",
+    "short_name": "Vapour",
+    "description": "On the ephemerality of the relations between us.",
+    "icons": [
+        {
+            "src": "/logo-512x512-transparent-bg.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "fullscreen",
+    "orientation": "portrait"
+}
