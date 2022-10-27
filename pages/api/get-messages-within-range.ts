@@ -1,12 +1,14 @@
 
+import { AnyBulkWriteOperation, ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ReqStatus } from 'types';
-import { getMessagesWithinRange } from 'util/db';
+import { bulkWrite, getMessagesWithinRange } from 'util/db';
+
+type Message = { message: string; readCount: number; }
 
 type Data = {
-    results?: string[];
+    messages?: string[];
     status: ReqStatus;
-    message?: string;
 }
 
 export default async function handler(
@@ -16,7 +18,7 @@ export default async function handler(
     try {
         const { visitorId, lon, lat, min, max } = req.body
 
-        const data = await getMessagesWithinRange<{ message: string; count: number; }>({
+        const data = await getMessagesWithinRange<Message>({
             visitorId: visitorId as string,
             coordinates: [
                 lon,
@@ -28,27 +30,42 @@ export default async function handler(
             },
             projection: {
                 message: 1,
-                count: 1
+                readCount: 1
             },
             sampleSize: 5,
         })
 
         // Todo: batch delete and batch upsert
 
-        const results = data.map(item => {
+        const reduced = data.reduce((acc, item) => {
 
-            if (item.count === 4) {
-                // Delete message (current user is 5th reader)
+            return {
+                messages: [...acc.messages, item.message],
+
+                toUpsert: item.readCount < 4 ? [...acc.toUpsert, {
+                    updateOne: {
+                        filter: { _id: item._id },
+                        update: {
+                            $inc: { readCount: 1 }
+                        }
+                    }
+                }] : acc.toUpsert,
+
+                toDelete: item.readCount === 4 ? [...acc.toDelete, {
+                    deleteOne: { filter: { _id: item._id } }
+                }] : acc.toDelete
             }
-
-            if (item.count < 4) {
-                // Upsert count +1
-            }
-
-            return item.message
+        }, {
+            messages: [] as string[],
+            toUpsert: [] as AnyBulkWriteOperation<object>[],
+            toDelete: [] as AnyBulkWriteOperation<object>[]
         })
 
-        res.status(200).json({ status: ReqStatus.SUCCESS, results })
+        // if (reduced.toUpsert.length || reduced.toDelete.length) {
+        //     const result = await bulkWrite([...reduced.toUpsert, ...reduced.toDelete])
+        // }
+
+        res.status(200).json({ status: ReqStatus.SUCCESS, messages: reduced.messages })
     } catch (Error) {
         throw Error
     }

@@ -28,10 +28,11 @@ export const getNearbyMsgLocs = async ({ visitorId, lon, lat, min, max, setMsgLo
     body: JSON.stringify({ visitorId, lon, lat, min, max })
   });
 
-  const { status, results } = await res.json()
+  const { status, results }: { status: ReqStatus, results: [number, number][] } = await res.json()
 
   if (status === ReqStatus.SUCCESS) {
-    setMsgLocs(results)
+    const latlon = results.map(item => [item[1], item[0]] as [number, number])
+    setMsgLocs(latlon)
   }
 
 }
@@ -40,8 +41,6 @@ export default function Home() {
   const [visitorCoords, setvisitorCoords] = useState<VisitorCoordsProps | undefined>();
   const [visitorId, setVisitorId] = useState<string>('')
   const [msgLocs, setMsgLocs] = useState<[number, number][]>([])
-
-  console.log(msgLocs)
 
   useEffect(() => {
     getvisitorCoords(setvisitorCoords);

@@ -1,4 +1,4 @@
-import { MongoClient, WithId } from "mongodb";
+import { AnyBulkWriteOperation, BulkWriteResult, MongoClient, WithId } from "mongodb";
 import { MessagePacket, ReqStatus } from "types";
 
 const ephemeralDb = "ephemeral"
@@ -13,8 +13,6 @@ export const getVisitorMessages = async (visitorId: string): Promise<MessagePack
 
     const client = await connectDb();
 
-    console.log({ visitorId })
-
     const res = (await client
         .db(ephemeralDb)
         .collection(messagesColl)
@@ -22,8 +20,6 @@ export const getVisitorMessages = async (visitorId: string): Promise<MessagePack
         .toArray()) as WithId<MessagePacket & Document>[]
 
     client.close();
-
-    console.log({ res })
 
     const messages = res.map(item => ({
         visitorId: item.visitorId,
@@ -53,7 +49,7 @@ export const insertMessage = async (
                         type: "Point",
                         coordinates: visitorCoords,
                     },
-                    count: 0,
+                    readCount: 0,
                     createdAt: new Date(),
                 },
             );
@@ -84,7 +80,6 @@ export const getMessagesWithinRange = async <T>({ visitorId, coordinates, distan
 
     const { min, max } = distance
 
-    console.log(`Looking for messages near ${coordinates[0]}, ${coordinates[1]}, between ${min} and ${max}m.`)
 
     const client = await connectDb();
 
@@ -111,4 +106,17 @@ export const getMessagesWithinRange = async <T>({ visitorId, coordinates, distan
     const data = await Promise.resolve(res.toArray()) as (WithId<Document & T>)[]
 
     return data
+}
+
+export const bulkWrite = async (commands: AnyBulkWriteOperation<object>[]): Promise<BulkWriteResult> => {
+    const client = await connectDb();
+
+    const result = await client
+        .db(ephemeralDb)
+        .collection(messagesColl)
+        .bulkWrite(commands)
+
+    client.close();
+
+    return result
 }

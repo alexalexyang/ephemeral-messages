@@ -25,10 +25,10 @@ export const getNearbyMessages = async ({ visitorId, lon, lat, min, max, setMess
         body: JSON.stringify({ visitorId, lon, lat, min, max })
     });
 
-    const { status, results } = await res.json()
+    const { status, messages } = await res.json()
 
     if (status === ReqStatus.SUCCESS) {
-        setMessages(results)
+        setMessages(messages)
     }
 
 }

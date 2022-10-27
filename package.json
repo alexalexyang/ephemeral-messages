@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db": "tsc scripts/index.ts && node scripts/index.js"
+    "db-script": "tsc scripts/index.ts && node scripts/index.js"
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^3.3.6",

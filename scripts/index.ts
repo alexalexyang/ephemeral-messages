@@ -45,4 +45,78 @@ const prepDb = async () => {
     return console.log("All indexes successfully created.")
 }
 
-prepDb()
+
+const fixtures = [
+    {
+        visitorId: "fixture1",
+        message: "I called them Nudes. Nude #1. Woman alone on a hill. She stands into the wind. It is a hard wind slanting from the north. Long flaps and shreds of flesh rip off the woman’s body and lift and blow away on the wind, leaving an exposed column of nerve and blood and muscle calling mutely through lipless mouth. It pains me to record this, - Anne Carson",
+        coords: {
+            type: "Point",
+            coordinates: [18.058411, 59.338180],
+        },
+        readCount: 3,
+        createdAt: new Date(),
+    },
+    {
+        visitorId: "fixture2",
+        message: "They fuck you up, your mum and dad. They may not mean to, but they do. They fill you with the faults they had And add some extra, just for you. But they were fucked up in their turn By fools in old- style hats and coats, Who half the time were soppy - stern And half at one another’s throats.- Philip Larkin",
+        coords: {
+            type: "Point",
+            coordinates: [18.058721, 59.338120],
+        },
+        readCount: 3,
+        createdAt: new Date(),
+    },
+    {
+        visitorId: "fixture3",
+        message: "While in summer trees thirst In foothills thazin flowers Are climbing thabye trees Eff'using fragrance Mixing with the wafting air. At sunset crow- pheasants are cooing, And from afar come the cuckoo's notes. Now and again thunder is beating Through heaven's expanses Like lambara and deindi drums. And I... - U Kyaw.",
+        coords: {
+            type: "Point",
+            coordinates: [18.058251, 59.338540],
+        },
+        readCount: 4,
+        createdAt: new Date(),
+    },
+    {
+        visitorId: "fixture4",
+        message: "Of course I can be Anjani whose ambition turned her into a monkey Or Savitri, who staggered to find her man although she was beautiful and clever Perhaps I could be Calon Arang, the powerful woman victim of patriarchy Or maybe Bahu Laweyan, with a beauty spot on my shoulder, Whose body makes me the target of domestic murder - Siwi Dwi Saputro",
+        coords: {
+            type: "Point",
+            coordinates: [18.058121, 59.338090],
+        },
+        readCount: 4,
+        createdAt: new Date(),
+    }
+]
+
+const createFixtures = async () => {
+    const client = await connectDb()
+
+    const result = await client
+        .db(ephemeralDb)
+        .collection(messagesColl)
+        .bulkWrite(fixtures.map(
+            item => ({ insertOne: { document: item } })
+        ))
+
+    console.log(result)
+
+    client.close()
+}
+
+const deleteFixtures = async () => {
+    const client = await connectDb()
+
+    const result = await client
+        .db(ephemeralDb)
+        .collection(messagesColl)
+        .deleteMany({ visitorId: { $regex: /fixture./ } })
+
+    console.log(result)
+
+    client.close()
+}
+
+// prepDb()
+createFixtures()
+// deleteFixtures()
