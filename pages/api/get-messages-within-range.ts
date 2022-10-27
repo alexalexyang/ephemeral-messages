@@ -46,7 +46,8 @@ export default async function handler(
                     updateOne: {
                         filter: { _id: item._id },
                         update: {
-                            $inc: { readCount: 1 }
+                            $inc: { readCount: 1 },
+                            $addToSet: { visitors: visitorId }
                         }
                     }
                 }] : acc.toUpsert,
@@ -61,9 +62,9 @@ export default async function handler(
             toDelete: [] as AnyBulkWriteOperation<object>[]
         })
 
-        // if (reduced.toUpsert.length || reduced.toDelete.length) {
-        //     const result = await bulkWrite([...reduced.toUpsert, ...reduced.toDelete])
-        // }
+        if (reduced.toUpsert.length || reduced.toDelete.length) {
+            const result = await bulkWrite([...reduced.toUpsert, ...reduced.toDelete])
+        }
 
         res.status(200).json({ status: ReqStatus.SUCCESS, messages: reduced.messages })
     } catch (Error) {

@@ -1,6 +1,6 @@
 ## Todo
 
-Make into PWA
+
 
 ## Summary
 

@@ -92,9 +92,10 @@ export const getMessagesWithinRange = async <T>({ visitorId, coordinates, distan
                     includeLocs: "dist.location",
                     spherical: true,
                     query: {
+                        visitors: { $not: { $in: [visitorId] } },
                         visitorId: {
                             $ne: visitorId
-                        }
+                        },
                     }
                 }
             },
