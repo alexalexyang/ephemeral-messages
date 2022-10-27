@@ -1,20 +1,15 @@
 ## Todo
 
-Add `readCount` prop to `MessagePacket`:
-  - Delete document after 5 reads
+Make instructions page the landing page.
 
-If count === 4, delete message (current user is 5th reader)
-
-If count < 4, update count
-
-Style messages
+Add About page.
 
 
 ## Summary
 
 Save text messages along with GPS coords.
 
-People can see them only when nearby.
+People can see them only when physically nearby.
 
 Only up to 5 people can see each message.
 

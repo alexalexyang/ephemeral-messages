@@ -7,6 +7,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  a {
+        color: dodgerblue;
+    }
 `
 
 const Main = styled.main`
@@ -21,17 +25,19 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
     color: #444;
+    font-size: 1.2rem;
+    font-weight: 200;
+    letter-spacing: 0.3px;
 
     h1 {
         font-size: 1.5rem;
-        font-weight: 200;
         letter-spacing: 0.4px;
     }
 
     h2 {
         font-size: 1.3rem;
-        font-weight: 200;
         letter-spacing: 0.4px;
     }
 
@@ -40,7 +46,18 @@ const Content = styled.div`
     }
 
     li {
+        margin-left: 1rem;
+        list-style-type: circle;
         letter-spacing: 0.5px;
+        font-size: 1.2rem;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        margin-bottom: 1.5rem;
     }
 
     @media only screen and (min-width: ${breakpoints.sm}px) {

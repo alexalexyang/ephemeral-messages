@@ -9,7 +9,11 @@ const NavItems = () => {
 
     return (
         <>
-            <Link href="/">
+            <Link href="/" aria-label="How to use this app">
+                <InfoIcon height={35} width={35} />
+            </Link>
+
+            <Link href="/map">
                 <MapMarkerIcon height={35} width={35} aria-label="Find message locations around you" />
             </Link>
 
@@ -21,13 +25,9 @@ const NavItems = () => {
                 <LetterIcon height={35} width={35} />
             </Link>
 
-            <Link href="/how-to-use" aria-label="How to use this app">
-                <InfoIcon height={35} width={35} />
-            </Link>
-
-            {/* <Link href="/about" aria-label="About this app">
+            <Link href="/about" aria-label="About this app">
                 <QuestionIcon height={35} width={35} />
-            </Link> */}
+            </Link>
         </>
     )
 }

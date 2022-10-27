@@ -1,18 +1,6 @@
 import DefaultLayout from 'components/layouts/default-layout'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import styled from 'styled-components'
-import { maxMsgs, maxReaders, MsgLifespan, radiusFromVisitor1 } from 'util/constants'
-
-const Ul = styled.ul`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    font-size: 1.5rem;
-    font-weight: 200;
-    letter-spacing: 0.4px;
-`
 
 const About: NextPage = () => {
 
@@ -25,11 +13,45 @@ const About: NextPage = () => {
             <DefaultLayout>
                 <h1>About</h1>
 
-                <p></p>
+                <section>
+                    <p>
+                        This work lets us meditate on the ephemerality of the relations between us.
+                    </p>
 
-                <h2>Funding</h2>
+                    <p>
+                        This work was conceived on 24 Oct 2022, and this text written on 27 Oct 2022. As an artist, I say it's too early to indulge in exegesis.
+                    </p>
 
-                <p></p>
+                    <p>
+                        Enjoy.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Funding</h2>
+
+                    <p>This work currently relies on the free tiers of the following services:</p>
+
+                    <ul>
+                        <li>OpenStreetMap</li>
+                        <li>Vercel</li>
+                        <li>MongoDB</li>
+                    </ul>
+
+                    <p>If things get heavy, we'll experience issues.</p>
+
+                    <p>If you like this idea and want to help pay for more assured performance, <a href="mailto:alexalexyang@gmail.com" target="_blank">text me</a>.</p>
+                </section>
+
+                <section>
+                    <h2>Known issues</h2>
+
+                    <ul>
+                        <li>
+                            OpenStreetMap rate limits: exceed them and we might "rate limit exceeded" tiles all over the map.
+                        </li>
+                    </ul>
+                </section>
             </DefaultLayout>
         </>
     )

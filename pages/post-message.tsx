@@ -35,6 +35,9 @@ const TextArea = styled.textarea`
 `
 
 const Button = styled.button<{ disabled: boolean; }>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 5rem;
     width: 5rem;
     padding: 1rem;
