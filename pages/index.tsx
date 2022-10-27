@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { createVisitorId, getvisitorCoords, VisitorCoordsProps } from 'util/index'
 import { ReqStatus } from 'types'
+import { radiusFromVisitor2 } from 'util/constants'
 
 const Map = dynamic(() => import('components/map'), {
   ssr: false,
@@ -57,7 +58,7 @@ export default function Home() {
       lon,
       lat,
       min: 0,
-      max: 100000,
+      max: radiusFromVisitor2,
       setMsgLocs
     })
 

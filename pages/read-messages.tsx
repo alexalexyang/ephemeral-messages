@@ -5,6 +5,7 @@ import { createVisitorId, getvisitorCoords, VisitorCoordsProps } from 'util/inde
 import { NextPage } from 'next'
 import DefaultLayout from 'components/layouts/default-layout'
 import { ReqStatus } from 'types'
+import { radiusFromVisitor1 } from 'util/constants'
 
 type NearbyMsgProps = {
     visitorId: string;
@@ -53,7 +54,7 @@ const ReadMessagesPage: NextPage = () => {
             lon,
             lat,
             min: 0,
-            max: 100000,
+            max: radiusFromVisitor1,
             setMessages
         })
 

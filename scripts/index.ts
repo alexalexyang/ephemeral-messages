@@ -6,6 +6,8 @@ const ephemeralDb = "ephemeral"
 const messagesColl = "messages"
 const MONGODB_PW = process.env.MONGODB_PW
 
+const fiveDaysInSecs = 432000
+
 const connectDb = async (): Promise<MongoClient> =>
     await MongoClient.connect(
         `mongodb+srv://nate:${MONGODB_PW}@cluster0.es9vt.mongodb.net/${ephemeralDb}?retryWrites=true&w=majority`
@@ -32,7 +34,7 @@ const prepDb = async () => {
 
     // Unit is in seconds
     // Set to 5 days
-    const resCreatedAt = await client.db(ephemeralDb).collection(messagesColl).createIndex({ "createdAt": 1 }, { expireAfterSeconds: 432000 })
+    const resCreatedAt = await client.db(ephemeralDb).collection(messagesColl).createIndex({ "createdAt": 1 }, { expireAfterSeconds: fiveDaysInSecs })
 
     if (resCreatedAt) {
         console.log(resCreatedAt)

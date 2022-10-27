@@ -1,6 +1,7 @@
 import DefaultLayout from 'components/layouts/default-layout'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { maxMsgs, maxReaders, MsgLifespan, radiusFromVisitor1 } from 'util/constants'
 
 const Ul = styled.ul`
     display: flex;
@@ -33,19 +34,19 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        You have to be physically within 10 metres of the message to read it.
+                        You have to be physically within {radiusFromVisitor1} metres of the message to read it.
                     </li>
 
                     <li>
-                        You may post only up to 5 messages a week.
+                        You may post only up to {maxMsgs} messages at any one time.
                     </li>
 
                     <li>
-                        Posts are deleted after 5 people have read them.
+                        Posts are deleted after {maxReaders} people have read them.
                     </li>
 
                     <li>
-                        Unread posts are deleted after 5 days.
+                        Unread posts are deleted after {MsgLifespan} days.
                     </li>
                 </Ul>
             </DefaultLayout>

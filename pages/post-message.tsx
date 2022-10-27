@@ -6,10 +6,9 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { breakpoints } from 'styles/constants'
 import { MessagePacket, ReqStatus } from 'types'
+import { maxMsgs, maxTextLength } from 'util/constants'
 import { createVisitorId, VisitorCoordsProps } from 'util/index'
 import { getvisitorCoords } from 'util/index'
-
-const maxLength = 350
 
 const Form = styled.form`
     width: 100%;
@@ -28,9 +27,6 @@ const TextArea = styled.textarea`
     width: 100%;
     border-radius: 1rem;
     padding: 0.5rem;
-    /* display: flex;
-    align-items: flex-start;
-    justify-content: flex-start; */
 
     @media only screen and (min-width: ${breakpoints.md}px) {
         width: ${breakpoints.sm}px;
@@ -118,9 +114,9 @@ const PostMessage: NextPage = () => {
 
                 {pastMsgsReqStatus === ReqStatus.PENDING && "Please wait..."}
 
-                {msgs.length === 5 && <span>You've reached the maximum number of posts.</span>}
+                {msgs.length === maxMsgs && <span>You've reached the maximum number of messages.</span>}
 
-                {msgs.length < 5 && pastMsgsReqStatus === ReqStatus.SUCCESS &&
+                {msgs.length < maxMsgs && pastMsgsReqStatus === ReqStatus.SUCCESS &&
                     <>
                         <Form onSubmit={async (e) => {
                             e.preventDefault()
@@ -145,7 +141,7 @@ const PostMessage: NextPage = () => {
                             }
                             SetNewMsgReqStatus(ReqStatus.FAIL)
                         }}>
-                            <TextArea maxLength={maxLength} onChange={(e) => setNewMsg(e.target.value)} value={newMsg} />
+                            <TextArea maxLength={maxTextLength} onChange={(e) => setNewMsg(e.target.value)} value={newMsg} />
                             <Button
                                 type="submit"
                                 disabled={newMsgReqStatus === ReqStatus.PENDING}
@@ -154,7 +150,7 @@ const PostMessage: NextPage = () => {
                             </Button>
                         </Form>
 
-                        <Counter>{maxLength - newMsg.length} characters left</Counter>
+                        <Counter>{maxTextLength - newMsg.length} characters left</Counter>
                     </>
                 }
 
