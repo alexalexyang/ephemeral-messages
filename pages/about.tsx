@@ -48,7 +48,7 @@ const About: NextPage = () => {
 
                     <ul>
                         <li>
-                            OpenStreetMap rate limits: exceed them and we might "rate limit exceeded" tiles all over the map.
+                            OpenStreetMap rate limits: exceed them and we might see "rate limit exceeded" tiles all over the map.
                         </li>
                     </ul>
                 </section>

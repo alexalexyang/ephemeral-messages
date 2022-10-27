@@ -1,9 +1,6 @@
 ## Todo
 
-Make instructions page the landing page.
-
-Add About page.
-
+Make into PWA
 
 ## Summary
 
