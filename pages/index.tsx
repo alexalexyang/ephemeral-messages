@@ -42,7 +42,7 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        Allowed HTML tags: b, strong, u, em, i. Line breaks allowed too.
+                        Line breaks and all the text formatting HTML tags listed <a href="https://www.w3schools.com/html/html_formatting.asp" target="_blank" rel="noopener noreferrer">here</a> are allowed.
                     </li>
 
                     <li>

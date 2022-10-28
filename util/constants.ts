@@ -1,5 +1,19 @@
 export const maxTextLength = 500 // characters
 
+export const allowedHtmlTags = [
+    'b',
+    'strong',
+    'em',
+    'i',
+    'u',
+    'small',
+    'sub',
+    'sup',
+    'ins',
+    'del',
+    'mark'
+]
+
 export const maxMsgs = 5 // visitor's messages at any one time
 
 export const maxReaders = 5 // persons

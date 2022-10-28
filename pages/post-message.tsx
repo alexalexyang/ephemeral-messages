@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { breakpoints } from 'styles/constants'
 import { MessagePacket, ReqStatus } from 'types'
-import { maxMsgs, maxTextLength } from 'util/constants'
+import { allowedHtmlTags, maxMsgs, maxTextLength } from 'util/constants'
 import { createVisitorId, VisitorCoordsProps } from 'util/index'
 import { getvisitorCoords } from 'util/index'
 
@@ -127,16 +127,7 @@ const PostMessage: NextPage = () => {
 
                             const sanitised = DOMPurify.sanitize(
                                 newMsg,
-                                {
-                                    ALLOWED_TAGS:
-                                        [
-                                            'b',
-                                            'strong',
-                                            'em',
-                                            'i',
-                                            'u'
-                                        ]
-                                })
+                                { ALLOWED_TAGS: allowedHtmlTags })
 
                             const status = await handleSubmit(
                                 visitorId,
