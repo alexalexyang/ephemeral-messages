@@ -4,7 +4,7 @@ export const maxMsgs = 5 // visitor's messages at any one time
 
 export const maxReaders = 5 // persons
 
-export const MsgLifespan = 5 // days
+export const msgLifespan = 5 // days
 
 // The following are in metres
 export const radiusFromVisitor1 = 10

@@ -50,6 +50,10 @@ const Content = styled.div`
         list-style-type: circle;
         letter-spacing: 0.5px;
         font-size: 1.2rem;
+
+        :not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
     }
 
     section {

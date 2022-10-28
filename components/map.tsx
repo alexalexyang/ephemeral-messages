@@ -29,7 +29,9 @@ const Map = ({ visitorCoords, msgLocs }: Props) => {
                 <ZoomControl position="bottomright" />
 
                 {!!msgLocs.length && msgLocs.map((loc, idx) => (
-                    <Marker position={loc} key={idx} />
+                    <Marker position={loc} key={idx}>
+                        <Popup>{`${loc[0]}, ${loc[1]}`}</Popup>
+                    </Marker>
                 ))}
             </MapContainer>
         </MapWrapper>

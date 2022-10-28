@@ -1,7 +1,7 @@
 import DefaultLayout from 'components/layouts/default-layout'
 import Head from 'next/head'
 import styled from 'styled-components'
-import { maxMsgs, maxReaders, MsgLifespan, radiusFromVisitor1 } from 'util/constants'
+import { maxMsgs, maxReaders, msgLifespan, radiusFromVisitor1, radiusFromVisitor2 } from 'util/constants'
 
 const Ul = styled.ul`
     display: flex;
@@ -30,23 +30,31 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        The map shows the locations of messages within a radius of you.
+                        The map shows locations of messages within {radiusFromVisitor2 / 1000}km of you. It takes some time to load.
                     </li>
 
                     <li>
-                        You have to be physically within {radiusFromVisitor1} metres of the message to read it.
+                        You must be <strong>physically</strong> within {radiusFromVisitor1}m of a message to read it.
                     </li>
 
                     <li>
-                        You may post only up to {maxMsgs} messages at any one time.
+                        You may post up to {maxMsgs} messages at any one time.
                     </li>
 
                     <li>
-                        Posts are deleted after {maxReaders} people have read them.
+                        Messages are deleted after {maxReaders} people have read them.
                     </li>
 
                     <li>
-                        Unread posts are deleted after {MsgLifespan} days.
+                        You may load each message only once.
+                    </li>
+
+                    <li>
+                        Unread posts are deleted after {msgLifespan} days.
+                    </li>
+
+                    <li>
+                        This is a <a href="https://en.wikipedia.org/wiki/Progressive_web_app" target="_blank" rel="noopener noreferrer">Progressive Web App (PWA)</a>. Some browsers allow us to install it on our devices.
                     </li>
                 </Ul>
             </DefaultLayout>
