@@ -1,5 +1,6 @@
 import DefaultLayout from 'components/layouts/default-layout'
 import PastMessages from 'components/past-messages'
+import * as DOMPurify from "dompurify";
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -91,13 +92,6 @@ const PostMessage: NextPage = () => {
         createVisitorId(setVisitorId)
     }, []); // eslint-disable-line
 
-    useEffect(() => {
-        if (newMsgReqStatus !== ReqStatus.SUCCESS || !newMsg) return
-
-        setMsgs([{ visitorId, message: newMsg }, ...msgs])
-        setNewMsg("")
-    }, [newMsgReqStatus])
-
     if (visitorCoords && visitorCoords.denied) {
         return (
             <>
@@ -131,10 +125,29 @@ const PostMessage: NextPage = () => {
 
                             SetNewMsgReqStatus(ReqStatus.PENDING)
 
-                            const status = await handleSubmit(visitorId, newMsg, visitorCoords)
+                            const sanitised = DOMPurify.sanitize(
+                                newMsg,
+                                {
+                                    ALLOWED_TAGS:
+                                        [
+                                            'b',
+                                            'strong',
+                                            'em',
+                                            'i',
+                                            'u'
+                                        ]
+                                })
+
+                            const status = await handleSubmit(
+                                visitorId,
+                                sanitised,
+                                visitorCoords
+                            )
 
                             if (status === "success") {
                                 SetNewMsgReqStatus(ReqStatus.SUCCESS)
+                                setMsgs([{ visitorId, message: sanitised }, ...msgs])
+                                setNewMsg("")
 
                                 setTimeout(() => {
                                     SetNewMsgReqStatus(ReqStatus.IDLE)
@@ -142,7 +155,9 @@ const PostMessage: NextPage = () => {
 
                                 return
                             }
+
                             SetNewMsgReqStatus(ReqStatus.FAIL)
+                            alert("Could not post message. Please try again later.")
                         }}>
                             <TextArea maxLength={maxTextLength} onChange={(e) => setNewMsg(e.target.value)} value={newMsg} />
                             <Button

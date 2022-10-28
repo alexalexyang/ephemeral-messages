@@ -30,6 +30,7 @@ const Content = styled.div`
     font-size: 1.2rem;
     font-weight: 200;
     letter-spacing: 0.3px;
+    white-space: pre-wrap;
 
     h1 {
         font-size: 1.5rem;

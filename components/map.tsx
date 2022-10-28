@@ -1,4 +1,3 @@
-import { LatLngExpression } from 'leaflet'
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import styled from 'styled-components'
 

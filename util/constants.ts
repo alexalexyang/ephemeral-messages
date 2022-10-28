@@ -1,4 +1,4 @@
-export const maxTextLength = 350 // characters
+export const maxTextLength = 500 // characters
 
 export const maxMsgs = 5 // visitor's messages at any one time
 

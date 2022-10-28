@@ -120,7 +120,7 @@ const ReadMessagesPage: NextPage = () => {
 
                     {!!messages.length && messages.map((msg, idx) => (
                         <MsgBox key={idx}>
-                            <Msg>{msg}</Msg>
+                            <Msg dangerouslySetInnerHTML={{ __html: msg }} />
                             {idx + 1 !== messages.length && <Hr />}
                         </MsgBox>
                     ))}

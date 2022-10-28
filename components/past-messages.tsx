@@ -61,6 +61,8 @@ const PastMessages = ({
         getVisitorMessages(visitorId, setMessages, setPastMsgsReqStatus)
     }, [visitorId])
 
+    messages && messages.forEach(msg => console.log(msg))
+
     return (
         <MsgsWrapper>
             <h2>Past messages</h2>
@@ -74,9 +76,7 @@ const PastMessages = ({
             }
 
             {!!messages.length && messages.map((item, idx) => (
-                <Message key={idx}>
-                    <span>{item.message}</span>
-                </Message>)
+                <Message key={idx} dangerouslySetInnerHTML={{ __html: item.message }} />)
             )}
         </MsgsWrapper>
     )
