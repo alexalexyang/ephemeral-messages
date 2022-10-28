@@ -42,7 +42,7 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        Allowed HTML tags: b, strong, u, em, i.
+                        Allowed HTML tags: b, strong, u, em, i. Line breaks allowed too.
                     </li>
 
                     <li>
