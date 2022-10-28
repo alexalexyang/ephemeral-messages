@@ -54,7 +54,7 @@ const fixtures = [
         message: "I called them Nudes. Nude #1. Woman alone on a hill. She stands into the wind. It is a hard wind slanting from the north. Long flaps and shreds of flesh rip off the woman’s body and lift and blow away on the wind, leaving an exposed column of nerve and blood and muscle calling mutely through lipless mouth. It pains me to record this, - Anne Carson",
         coords: {
             type: "Point",
-            coordinates: [18.058411, 59.338180],
+            coordinates: [18.070034, 59.339036],
         },
         readCount: 3,
         createdAt: new Date(),
@@ -74,7 +74,7 @@ const fixtures = [
         message: "While in summer trees thirst In foothills thazin flowers Are climbing thabye trees Eff'using fragrance Mixing with the wafting air. At sunset crow- pheasants are cooing, And from afar come the cuckoo's notes. Now and again thunder is beating Through heaven's expanses Like lambara and deindi drums. And I... - U Kyaw.",
         coords: {
             type: "Point",
-            coordinates: [18.058251, 59.338540],
+            coordinates: [18.058710, 59.331003],
         },
         readCount: 4,
         createdAt: new Date(),
@@ -84,7 +84,7 @@ const fixtures = [
         message: "Of course I can be Anjani whose ambition turned her into a monkey Or Savitri, who staggered to find her man although she was beautiful and clever Perhaps I could be Calon Arang, the powerful woman victim of patriarchy Or maybe Bahu Laweyan, with a beauty spot on my shoulder, Whose body makes me the target of domestic murder - Siwi Dwi Saputro",
         coords: {
             type: "Point",
-            coordinates: [18.058121, 59.338090],
+            coordinates: [18.046709, 59.336636],
         },
         readCount: 4,
         createdAt: new Date(),
