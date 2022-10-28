@@ -1,5 +1,6 @@
 ## Todo
 
+Add message GPS coords in unseen `div` in map page for accessibility.
 
 
 ## Summary

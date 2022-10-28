@@ -42,6 +42,10 @@ export default function HowToUse() {
                     </li>
 
                     <li>
+                        Allowed HTML tags: b, strong, u, em, i.
+                    </li>
+
+                    <li>
                         Messages are deleted after {maxReaders} people have read them.
                     </li>
 
