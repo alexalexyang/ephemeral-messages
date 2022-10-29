@@ -1,9 +1,9 @@
 import Link from "next/link"
-import InfoIcon from "./icons/info-icon"
-import LetterIcon from "./icons/letter-icon"
-import MapMarkerIcon from "./icons/map-marker-icon"
-import PlaneIcon from "./icons/plane-icon"
-import QuestionIcon from "./icons/question-icon"
+import InfoIcon from "components/icons/info-icon"
+import LetterIcon from "components/icons/letter-icon"
+import MapMarkerIcon from "components/icons/map-marker-icon"
+import PlaneIcon from "components/icons/plane-icon"
+import QuestionIcon from "components/icons/question-icon"
 
 const NavItems = () => {
 

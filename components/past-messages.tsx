@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styled from "styled-components";
+import { Notice } from "styles/shared-comps";
 import { MessagePacket, ReqStatus } from "types";
 
-const MsgsWrapper = styled.div`
+const MsgsWrapper = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -67,12 +68,12 @@ const PastMessages = ({
         <MsgsWrapper>
             <h2>Past messages</h2>
 
-            {pastMsgsReqStatus === ReqStatus.PENDING && "Getting your past messages..."}
+            {pastMsgsReqStatus === ReqStatus.PENDING && <Notice>"Getting your past messages..."</Notice>}
 
             {
                 pastMsgsReqStatus !== ReqStatus.PENDING &&
                 messages.length === 0 &&
-                <span>No messages yet.</span>
+                <Notice>No messages yet.</Notice>
             }
 
             {!!messages.length && messages.map((item, idx) => (

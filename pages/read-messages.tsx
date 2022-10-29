@@ -7,6 +7,7 @@ import DefaultLayout from 'components/layouts/default-layout'
 import { ReqStatus } from 'types'
 import { radiusFromVisitor1 } from 'util/constants'
 import styled from 'styled-components'
+import { Notice } from 'styles/shared-comps'
 
 const MsgsWrapper = styled.div`
     display: flex;
@@ -111,12 +112,12 @@ const ReadMessagesPage: NextPage = () => {
                     {
                         (getReqStatus === ReqStatus.IDLE ||
                             getReqStatus === ReqStatus.PENDING) &&
-                        <span>Please wait...</span>
+                        <Notice>Please wait...</Notice>
                     }
 
                     {getReqStatus === ReqStatus.SUCCESS &&
                         messages.length === 0 &&
-                        <span>No message here yet.</span>}
+                        <Notice>No message here yet.</Notice>}
 
                     {!!messages.length && messages.map((msg, idx) => (
                         <MsgBox key={idx}>
