@@ -1,7 +1,12 @@
+import LetterIcon from 'components/icons/letter-icon'
+import MapMarkerIcon from 'components/icons/map-marker-icon'
+import PlaneIcon from 'components/icons/plane-icon'
 import DefaultLayout from 'components/layouts/default-layout'
 import Head from 'next/head'
 import styled from 'styled-components'
 import { maxMsgs, maxReaders, msgLifespan, radiusFromVisitor1, radiusFromVisitor2 } from 'util/constants'
+
+const iconSize = 18
 
 const Ul = styled.ul`
     display: flex;
@@ -11,6 +16,12 @@ const Ul = styled.ul`
     font-size: 1.5rem;
     font-weight: 200;
     letter-spacing: 0.4px;
+`
+
+const IconBox = styled.span`
+    svg {
+        display: inline
+    };
 `
 
 export default function HowToUse() {
@@ -30,15 +41,15 @@ export default function HowToUse() {
                     </li>
 
                     <li>
-                        The map shows locations of messages within {radiusFromVisitor2 / 1000}km of you. It takes some time to load.
+                        The map (<IconBox><MapMarkerIcon height={iconSize} width={iconSize} aria-label="Map icon" /></IconBox>) shows locations of messages within {radiusFromVisitor2 / 1000}km of you. It takes some time to load.
                     </li>
 
                     <li>
-                        You must be <strong>physically</strong> within {radiusFromVisitor1}m of a message to read it.
+                        You must be <strong>physically</strong> within {radiusFromVisitor1}m of a message (<IconBox><LetterIcon height={iconSize} width={iconSize} aria-label="Map icon" /></IconBox>) to read it.
                     </li>
 
                     <li>
-                        You may post up to {maxMsgs} messages at any one time.
+                        You may post (<IconBox><PlaneIcon height={iconSize} width={iconSize} aria-label="Map icon" /></IconBox>) up to {maxMsgs} messages at any one time.
                     </li>
 
                     <li>

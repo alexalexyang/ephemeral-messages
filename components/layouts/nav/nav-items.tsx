@@ -5,28 +5,30 @@ import MapMarkerIcon from "components/icons/map-marker-icon"
 import PlaneIcon from "components/icons/plane-icon"
 import QuestionIcon from "components/icons/question-icon"
 
+const iconSize = 35
+
 const NavItems = () => {
 
     return (
         <>
             <Link href="/" aria-label="How to use this app">
-                <InfoIcon height={35} width={35} />
+                <InfoIcon height={iconSize} width={iconSize} />
             </Link>
 
             <Link href="/map">
-                <MapMarkerIcon height={35} width={35} aria-label="Find message locations around you" />
+                <MapMarkerIcon height={iconSize} width={iconSize} aria-label="Find message locations around you" />
             </Link>
 
             <Link href="/post-message" aria-label="Post a message">
-                <PlaneIcon height={35} width={35} />
+                <PlaneIcon height={iconSize} width={iconSize} />
             </Link>
 
             <Link href="/read-messages" aria-label="Read messages near you">
-                <LetterIcon height={35} width={35} />
+                <LetterIcon height={iconSize} width={iconSize} />
             </Link>
 
             <Link href="/about" aria-label="About this app">
-                <QuestionIcon height={35} width={35} />
+                <QuestionIcon height={iconSize} width={iconSize} />
             </Link>
         </>
     )
