@@ -7,7 +7,7 @@ const About: NextPage = () => {
     return (
         <>
             <Head>
-                <meta name="description" content="What's this app about?" />
+                <meta name="description" content={`What's this app about?`} />
             </Head>
 
             <DefaultLayout>
@@ -19,7 +19,7 @@ const About: NextPage = () => {
                     </p>
 
                     <p>
-                        This work was conceived on 24 Oct 2022, and this text written on 27 Oct 2022. As an artist, I say it's too early to indulge in exegesis.
+                        {`This work was conceived on 24 Oct 2022, and this text written on 27 Oct 2022. As an artist, I say it's too early to indulge in exegesis.`}
                     </p>
 
                     <p>

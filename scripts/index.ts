@@ -71,7 +71,7 @@ const fixtures = [
     },
     {
         visitorId: "fixture3",
-        message: "While in summer trees thirst In foothills thazin flowers Are climbing thabye trees Eff'using fragrance Mixing with the wafting air. At sunset crow- pheasants are cooing, And from afar come the cuckoo's notes. Now and again thunder is beating Through heaven's expanses Like lambara and deindi drums. And I... - U Kyaw.",
+        message: `While in summer trees thirst In foothills thazin flowers Are climbing thabye trees Eff'using fragrance Mixing with the wafting air. At sunset crow- pheasants are cooing, And from afar come the cuckoo's notes. Now and again thunder is beating Through heaven's expanses Like lambara and deindi drums. And I... - U Kyaw.`,
         coords: {
             type: "Point",
             coordinates: [18.058710, 59.331003],
