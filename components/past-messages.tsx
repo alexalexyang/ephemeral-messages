@@ -68,7 +68,7 @@ const PastMessages = ({
         <MsgsWrapper>
             <h2>Past messages</h2>
 
-            {pastMsgsReqStatus === ReqStatus.PENDING && <Notice>"Getting your past messages..."</Notice>}
+            {pastMsgsReqStatus === ReqStatus.PENDING && <Notice>Getting your past messages...</Notice>}
 
             {
                 pastMsgsReqStatus !== ReqStatus.PENDING &&

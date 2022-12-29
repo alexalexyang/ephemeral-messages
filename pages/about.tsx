@@ -38,9 +38,9 @@ const About: NextPage = () => {
                         <li>MongoDB</li>
                     </ul>
 
-                    <p>If things get heavy, we'll experience issues.</p>
+                    <p>{`If things get heavy, we'll experience issues.`}</p>
 
-                    <p>If you like this idea and want to help pay for more assured performance, <a href="mailto:alexalexyang@gmail.com" target="_blank">text me</a>.</p>
+                    <p>If you like this idea and want to help pay for more assured performance, <a href="mailto:alexalexyang@gmail.com" target="_blank" rel="noreferrer">text me</a>.</p>
                 </section>
 
                 <section>
@@ -48,7 +48,7 @@ const About: NextPage = () => {
 
                     <ul>
                         <li>
-                            OpenStreetMap rate limits: exceed them and we might see "rate limit exceeded" tiles all over the map.
+                            {`OpenStreetMap rate limits: exceed them and we might see "rate limit exceeded" tiles all over the map.`}
                         </li>
 
                         <li>

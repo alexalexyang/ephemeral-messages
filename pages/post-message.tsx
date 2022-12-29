@@ -49,9 +49,9 @@ const PostMessage: NextPage = () => {
             <DefaultLayout>
                 <h1>Post a message</h1>
 
-                {pastMsgsReqStatus === ReqStatus.PENDING && <Notice>"Please wait..."</Notice>}
+                {pastMsgsReqStatus === ReqStatus.PENDING && <Notice>Please wait...</Notice>}
 
-                {msgs.length === maxMsgs && <Notice>You've reached the maximum number of messages.</Notice>}
+                {msgs.length === maxMsgs && <Notice>{`You've reached the maximum number of messages.`}</Notice>}
 
                 {msgs.length < maxMsgs && pastMsgsReqStatus === ReqStatus.SUCCESS && visitorCoords &&
                     <>
